@@ -1,0 +1,25 @@
+body {
+  background-image: linear-gradient(to right, #f9ac07, #bf1278);
+}
+
+#Screensaver {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+}
+
+#image {
+  position: absolute;
+  display: none;
+  animation: fadeIn1s ease-out;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
