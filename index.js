@@ -6,11 +6,16 @@ const randomImage = () => {
   for (let img of images) {
     img.style.display = "";
   }
+
   images[randomIndex].style.display = "block";
 };
 
 // Get random positions of images
 const images = document.getElementsByTagName("img");
+
+const getRandomNumber = (min, max) => {
+  return Math.random() * (max - min) + min;
+};
 
 const winWidth = window.innerWidth;
 const winHeight = window.innerHeight;
@@ -21,30 +26,30 @@ for (let i = 0; i < images.length; i++) {
   randomTop = getRandomNumber(0, winHeight);
   randomLeft = getRandomNumber(0, winWidth);
 
+  //fixed images width
+  if (randomLeft + thisImages.width > winWidth) {
+    thisImages.style.left = winWidth - thisImages.width - 30 + "px";
+  } else {
+    thisImages.style.left = randomLeft + "px";
+  }
   thisImages.style.top = randomTop + "px";
-  thisImages.style.left = randomLeft + "px";
-}
-
-function getRandomNumber(min, max) {
-  return Math.random() * (max - min) + min;
 }
 
 // Activate Screen Saver
-(function () {
+const screenSaver = (delay, interval) => {
   window.addEventListener("load", function () {
     const el = document.getElementById("Screensaver");
     el.className = "Screensaver";
 
     let timeoutId = null;
 
-    //Configuration entry with options
-    const timeout = 10000;
-    const showImage = setInterval(randomImage, 5000);
+    const timeout = delay;
+    const showImage = setInterval(randomImage, interval);
 
     function disable() {
       el.style.display = "none";
       timeoutId && clearTimeout(timeoutId);
-      timeoutId = setTimeout(function () {
+      timeoutId = setTimeout(() => {
         showImage;
         el.style.display = "block";
       }, timeout);
@@ -53,4 +58,7 @@ function getRandomNumber(min, max) {
     document.addEventListener("mousemove", disable);
     document.addEventListener("keydown", disable);
   });
-})();
+};
+
+//Configuration entry with options
+screenSaver(10000, 5000);
