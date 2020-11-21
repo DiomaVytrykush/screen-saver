@@ -10,30 +10,37 @@ const randomImage = () => {
   images[randomIndex].style.display = "block";
 };
 
-// Get random positions of images
-const images = document.getElementsByTagName("img");
+// Get random position of images
+window.onload = function () {
+  const images = document.getElementsByTagName("img");
 
-const getRandomNumber = (min, max) => {
-  return Math.random() * (max - min) + min;
-};
+  const getRandomNumber = (min, max) => {
+    return Math.random() * (max - min) + min;
+  };
 
-const winWidth = window.innerWidth;
-const winHeight = window.innerHeight;
+  const winWidth = window.innerWidth;
+  const winHeight = window.innerHeight;
 
-for (let i = 0; i < images.length; i++) {
-  const thisImages = images[i];
+  for (let i = 0; i < images.length; i++) {
+    const thisImages = images[i];
 
-  randomTop = getRandomNumber(0, winHeight);
-  randomLeft = getRandomNumber(0, winWidth);
+    randomTop = getRandomNumber(0, winHeight);
+    randomLeft = getRandomNumber(0, winWidth);
 
-  //fixed images width
-  if (randomLeft + thisImages.width > winWidth) {
-    thisImages.style.left = winWidth - thisImages.width - 30 + "px";
-  } else {
-    thisImages.style.left = randomLeft + "px";
+    //fixed images width and height
+    if (randomLeft + thisImages.naturalWidth > winWidth) {
+      thisImages.style.left = winWidth - thisImages.naturalWidth - 30 + "px";
+    } else {
+      thisImages.style.left = randomLeft + "px";
+    }
+
+    if (randomTop + thisImages.naturalHeight > winHeight) {
+      thisImages.style.top = winHeight - thisImages.naturalHeight - 20 + "px";
+    } else {
+      thisImages.style.top = randomTop + "px";
+    }
   }
-  thisImages.style.top = randomTop + "px";
-}
+};
 
 // Activate Screen Saver
 const screenSaver = (delay, interval) => {
