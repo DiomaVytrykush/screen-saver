@@ -27,17 +27,11 @@ window.onload = function () {
     randomTop = getRandomNumber(0, winHeight);
     randomLeft = getRandomNumber(0, winWidth);
 
-    //fixed images width and height
+    //fixed images width
     if (randomLeft + thisImages.naturalWidth > winWidth) {
       thisImages.style.left = winWidth - thisImages.naturalWidth - 30 + "px";
     } else {
       thisImages.style.left = randomLeft + "px";
-    }
-
-    if (randomTop + thisImages.naturalHeight > winHeight) {
-      thisImages.style.top = winHeight - thisImages.naturalHeight - 20 + "px";
-    } else {
-      thisImages.style.top = randomTop + "px";
     }
   }
 };
@@ -46,21 +40,20 @@ window.onload = function () {
 const screenSaver = (delay, interval) => {
   window.addEventListener("load", function () {
     const el = document.getElementById("Screensaver");
-    el.className = "Screensaver";
 
     let timeoutId = null;
 
     const timeout = delay;
     const showImage = setInterval(randomImage, interval);
 
-    function disable() {
+    const disable = () => {
       el.style.display = "none";
       timeoutId && clearTimeout(timeoutId);
       timeoutId = setTimeout(() => {
         showImage;
         el.style.display = "block";
       }, timeout);
-    }
+    };
     disable();
     document.addEventListener("mousemove", disable);
     document.addEventListener("keydown", disable);
